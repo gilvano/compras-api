@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
-    private val revendedorRepository: RevendedorRepository
+    private val revendedorRepository: RevendedorRepository,
+    private val jwtUtil: JwtUtil
 ) : UsernamePasswordAuthenticationFilter(
     authenticationManager
 ) {
@@ -37,7 +38,7 @@ class AuthenticationFilter(
         authResult: Authentication
     ) {
         val id = (authResult.principal as UserCustomDetails).id
-
-        response.addHeader("Authorization", "Bearer " + id)
+        val token = jwtUtil.generateToken(id)
+        response.addHeader("Authorization", "Bearer $token")
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails
 class UserCustomDetails(
     private val revendedorModel: RevendedorModel
 ): UserDetails {
-    val id = revendedorModel.id
+    val id = revendedorModel.id.toString()
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf<GrantedAuthority>(SimpleGrantedAuthority(revendedorModel.roles.description))
     override fun getPassword(): String = revendedorModel.senha
