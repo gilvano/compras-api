@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.util.UUID
 import kotlin.random.Random
 
 @ExtendWith(MockKExtension::class)
@@ -20,22 +22,30 @@ internal class ResellerServiceImplTest{
     @MockK
     private lateinit var resellerRepository: ResellerRepository
 
+    @MockK
+    private lateinit var bCrypt: BCryptPasswordEncoder
+
     @InjectMockKs
     private lateinit var resellerService: ResellerServiceImpl
 
     @Test
-    fun `should create a reseller`() {
-        val reseller = buildReseller()
+    fun `should create a reseller and encrypt password`() {
+        val initialPassword = java.util.Random().nextInt().toString()
+        val reseller = buildReseller(password = initialPassword)
+        val fakePassword = UUID.randomUUID().toString()
+        val resellerEncrypted = reseller.copy(password = fakePassword)
 
         every { resellerRepository.existsByCpf(reseller.cpf) } returns false
         every { resellerRepository.existsByEmail(reseller.email) } returns false
-        every { resellerRepository.save(reseller) } returns reseller
+        every { resellerRepository.save(resellerEncrypted) } returns reseller
+        every { bCrypt.encode(initialPassword) } returns fakePassword
 
         resellerService.create(reseller)
 
         verify(exactly = 1) { resellerRepository.existsByCpf(reseller.cpf) }
         verify(exactly = 1) { resellerRepository.existsByEmail(reseller.email) }
-        verify(exactly = 1) { resellerRepository.save(reseller) }
+        verify(exactly = 1) { resellerRepository.save(resellerEncrypted) }
+        verify(exactly = 1) { bCrypt.encode(initialPassword) }
     }
 
     @Test
@@ -51,7 +61,7 @@ internal class ResellerServiceImplTest{
             resellerService.create(reseller)
         }
 
-        Assertions.assertEquals("CPF já cadastrado", error.message)
+        Assertions.assertEquals("CPF already registered", error.message)
         Assertions.assertEquals("CP001", error.errorCode)
 
         verify(exactly = 1) { resellerRepository.existsByCpf(cpf) }
@@ -72,7 +82,7 @@ internal class ResellerServiceImplTest{
             resellerService.create(reseller)
         }
 
-        Assertions.assertEquals("E-mail já cadastrado", error.message)
+        Assertions.assertEquals("E-mail already registered", error.message)
         Assertions.assertEquals("CP002", error.errorCode)
 
         verify(exactly = 1) { resellerRepository.existsByCpf(cpf) }
