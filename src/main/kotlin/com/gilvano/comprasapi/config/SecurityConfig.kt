@@ -1,6 +1,6 @@
 package com.gilvano.comprasapi.config
 
-import com.gilvano.comprasapi.repository.RevendedorRepository
+import com.gilvano.comprasapi.repository.ResellerRepository
 import com.gilvano.comprasapi.security.AuthenticationFilter
 import com.gilvano.comprasapi.security.AuthorizationFilter
 import com.gilvano.comprasapi.security.CustomAuthenticationEntryPoint
@@ -22,7 +22,7 @@ import org.springframework.web.filter.CorsFilter
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val revendedorRepository: RevendedorRepository,
+    private val resellerRepository: ResellerRepository,
     private val userDetails: UserDetailsCustomService,
     private val jwtUtil: JwtUtil,
     private val customEntryPoint: CustomAuthenticationEntryPoint
@@ -30,7 +30,7 @@ class SecurityConfig(
 
 
     private val PUBLIC_POST_MATCHERS = arrayOf(
-        "/api/v1/revendedor"
+        "/api/v1/resellers"
     )
 
     override fun configure(http: HttpSecurity) {
@@ -38,7 +38,7 @@ class SecurityConfig(
         http.authorizeRequests()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .anyRequest().authenticated()
-        http.addFilter(AuthenticationFilter(authenticationManager(), revendedorRepository, jwtUtil))
+        http.addFilter(AuthenticationFilter(authenticationManager(), resellerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         http.exceptionHandling().authenticationEntryPoint(customEntryPoint)

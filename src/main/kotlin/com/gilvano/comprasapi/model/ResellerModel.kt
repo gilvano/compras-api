@@ -3,17 +3,16 @@ package com.gilvano.comprasapi.model
 import com.gilvano.comprasapi.enums.Profile
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.util.UUID
 import javax.validation.constraints.NotBlank
 
-@Document(collection = "revendedor")
-data class RevendedorModel(
+@Document(collection = "resellers")
+data class ResellerModel(
 
     @Id
     var id: String? = null,
 
     @NotBlank
-    val nome: String,
+    val name: String,
 
     @NotBlank
     val cpf: String,
@@ -22,9 +21,9 @@ data class RevendedorModel(
     val email: String,
 
     @NotBlank
-    val senha: String,
+    val password: String,
 
-    var roles: Profile = Profile.REVENDEDOR
+    var profile: Profile = Profile.RESELLER
 
 
 )

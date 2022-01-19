@@ -1,18 +1,18 @@
 package com.gilvano.comprasapi.helper
 
-import com.gilvano.comprasapi.model.RevendedorModel
+import com.gilvano.comprasapi.model.ResellerModel
 import java.util.UUID
 
-fun buildRevendedor(
+fun buildReseller(
     id: String? = UUID.randomUUID().toString(),
-    nome: String = "Revendedor Teste",
+    nome: String = "Reseller Test",
     cpf: String = "12345678901",
     email: String = "${UUID.randomUUID()}@email.com",
-    senha: String = "senha",
-) = RevendedorModel(
+    password: String = "password",
+) = ResellerModel(
     id = id,
-    nome = nome,
+    name = nome,
     cpf = cpf,
     email = email,
-    senha = senha,
+    password = password,
 )

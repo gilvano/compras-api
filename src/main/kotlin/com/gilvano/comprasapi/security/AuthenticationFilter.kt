@@ -4,7 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.gilvano.comprasapi.controller.request.LoginRequest
 import com.gilvano.comprasapi.enums.Errors
 import com.gilvano.comprasapi.exception.AuthenticationException
-import com.gilvano.comprasapi.repository.RevendedorRepository
+import com.gilvano.comprasapi.repository.ResellerRepository
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
-    private val revendedorRepository: RevendedorRepository,
+    private val resellerRepository: ResellerRepository,
     private val jwtUtil: JwtUtil
 ) : UsernamePasswordAuthenticationFilter(
     authenticationManager
@@ -23,7 +23,7 @@ class AuthenticationFilter(
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         try {
             val loginRequest = jacksonObjectMapper().readValue(request?.inputStream, LoginRequest::class.java)
-            val id = revendedorRepository.findByEmail(loginRequest.email)?.id
+            val id = resellerRepository.findByEmail(loginRequest.email)?.id
             val authToken = UsernamePasswordAuthenticationToken(id, loginRequest.senha)
             return authenticationManager.authenticate(authToken)
         } catch (e: Exception) {
