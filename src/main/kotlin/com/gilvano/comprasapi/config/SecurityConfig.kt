@@ -1,4 +1,4 @@
-package com.gilvano.comprasapi.controller.config
+package com.gilvano.comprasapi.config
 
 import com.gilvano.comprasapi.repository.RevendedorRepository
 import com.gilvano.comprasapi.security.AuthenticationFilter
@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import org.springframework.web.filter.CorsFilter
 
 @Configuration
 @EnableWebSecurity
@@ -45,5 +48,17 @@ class SecurityConfig(
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
+    }
+
+    @Bean
+    fun corsConfig(): CorsFilter {
+        val source = UrlBasedCorsConfigurationSource()
+        val config = CorsConfiguration()
+        config.allowCredentials = true
+        config.addAllowedOrigin("*")
+        config.addAllowedHeader("*")
+        config.addAllowedMethod("*")
+        source.registerCorsConfiguration("/**", config)
+        return CorsFilter(source)
     }
 }
