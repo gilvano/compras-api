@@ -1,5 +1,6 @@
 package com.gilvano.comprasapi.model
 
+import com.gilvano.comprasapi.enums.Profile
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.UUID
@@ -21,5 +22,9 @@ data class RevendedorModel(
     val email: String,
 
     @NotBlank
-    val senha: String
+    val senha: String,
+
+    var roles: Profile = Profile.REVENDEDOR
+
+
 )
