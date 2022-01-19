@@ -3,6 +3,7 @@ package com.gilvano.comprasapi.config
 import com.gilvano.comprasapi.repository.RevendedorRepository
 import com.gilvano.comprasapi.security.AuthenticationFilter
 import com.gilvano.comprasapi.security.AuthorizationFilter
+import com.gilvano.comprasapi.security.CustomAuthenticationEntryPoint
 import com.gilvano.comprasapi.security.JwtUtil
 import com.gilvano.comprasapi.security.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -23,7 +24,8 @@ import org.springframework.web.filter.CorsFilter
 class SecurityConfig(
     private val revendedorRepository: RevendedorRepository,
     private val userDetails: UserDetailsCustomService,
-    private val jwtUtil: JwtUtil
+    private val jwtUtil: JwtUtil,
+    private val customEntryPoint: CustomAuthenticationEntryPoint
 ): WebSecurityConfigurerAdapter() {
 
 
@@ -39,6 +41,7 @@ class SecurityConfig(
         http.addFilter(AuthenticationFilter(authenticationManager(), revendedorRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.exceptionHandling().authenticationEntryPoint(customEntryPoint)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
@@ -55,7 +58,7 @@ class SecurityConfig(
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.addAllowedOrigin("*")
+        config.addAllowedOriginPattern("*")
         config.addAllowedHeader("*")
         config.addAllowedMethod("*")
         source.registerCorsConfiguration("/**", config)
