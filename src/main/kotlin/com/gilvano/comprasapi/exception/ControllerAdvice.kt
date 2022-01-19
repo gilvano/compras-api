@@ -10,8 +10,8 @@ import org.springframework.web.context.request.WebRequest
 @ControllerAdvice
 class ControllerAdvice {
 
-    @ExceptionHandler(CpfDuplicadoException::class)
-    fun handleCpfDuplicadoException(ex: CpfDuplicadoException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(BadRequestException::class)
+    fun handleCpfDuplicadoException(ex: BadRequestException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val erro = ErrorResponse(
             HttpStatus.BAD_REQUEST.value(),
             ex.message,
