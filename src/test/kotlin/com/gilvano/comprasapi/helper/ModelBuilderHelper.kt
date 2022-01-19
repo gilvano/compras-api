@@ -4,7 +4,7 @@ import com.gilvano.comprasapi.model.RevendedorModel
 import java.util.UUID
 
 fun buildRevendedor(
-    id: UUID? = UUID.randomUUID(),
+    id: String? = UUID.randomUUID().toString(),
     nome: String = "Revendedor Teste",
     cpf: String = "12345678901",
     email: String = "${UUID.randomUUID()}@email.com",

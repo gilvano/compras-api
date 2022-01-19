@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank
 data class RevendedorModel(
 
     @Id
-    var id: UUID? = null,
+    var id: String? = null,
 
     @NotBlank
     val nome: String,

@@ -2,9 +2,11 @@ package com.gilvano.comprasapi.controller.config
 
 import com.gilvano.comprasapi.repository.RevendedorRepository
 import com.gilvano.comprasapi.security.AuthenticationFilter
+import com.gilvano.comprasapi.security.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -14,7 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val revendedorRepository: RevendedorRepository
+    private val revendedorRepository: RevendedorRepository,
+    private val userDetails: UserDetailsCustomService
 ): WebSecurityConfigurerAdapter() {
 
 
@@ -29,6 +32,10 @@ class SecurityConfig(
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), revendedorRepository))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    }
+
+    override fun configure(auth: AuthenticationManagerBuilder) {
+        auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder())
     }
 
     @Bean

@@ -6,7 +6,7 @@ import java.util.UUID
 
 fun RevendedorRequest.toRevendedorModel() =
     RevendedorModel(
-        id = UUID.randomUUID(),
+        id = UUID.randomUUID().toString(),
         nome = nome,
         cpf = cpf,
         email = email,
