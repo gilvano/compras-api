@@ -1,6 +1,8 @@
 package com.gilvano.comprasapi.controller
 
 import com.gilvano.comprasapi.controller.request.RevendedorRequest
+import com.gilvano.comprasapi.extension.toRevendedorModel
+import com.gilvano.comprasapi.service.RevendedorService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -11,9 +13,13 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/revendedor")
-class RevendedorController {
+class RevendedorController(
+         val revendedorService: RevendedorService
+) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody @Valid revendedor: RevendedorRequest) = "Revendedor criado com sucesso"
+    fun create(@Valid @RequestBody revendedorRequest: RevendedorRequest) =
+        revendedorService.create(revendedorRequest.toRevendedorModel())
+
 }

@@ -1,5 +1,6 @@
 package com.gilvano.comprasapi.controller.request
 
+import com.gilvano.comprasapi.model.RevendedorModel
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.Email

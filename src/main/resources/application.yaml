@@ -1,4 +1,9 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/compras-api
+      host: localhost
+      port: 27017
+      database: compras-api
+      username: root
+      password: root
+      authenticationDatabase: admin
