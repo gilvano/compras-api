@@ -4,9 +4,6 @@ import com.gilvano.comprasapi.controller.request.CompraRequest
 import com.gilvano.comprasapi.controller.request.RevendedorRequest
 import com.gilvano.comprasapi.model.CompraModel
 import com.gilvano.comprasapi.model.RevendedorModel
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 fun RevendedorRequest.toRevendedorModel() =
@@ -24,5 +21,4 @@ fun CompraRequest.toCompraModel() =
         cpf = cpf,
         valor = valor,
         data = data
-        //data = LocalDate.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd")),
     )
