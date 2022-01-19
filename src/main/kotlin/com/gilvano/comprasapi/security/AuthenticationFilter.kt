@@ -27,7 +27,7 @@ class AuthenticationFilter(
             val authToken = UsernamePasswordAuthenticationToken(id, loginRequest.senha)
             return authenticationManager.authenticate(authToken)
         } catch (e: Exception) {
-            throw AuthenticationException(Errors.CP999.message, Errors.CP999.code)
+            throw AuthenticationException(Errors.CP999.message + "111", Errors.CP999.code)
         }
     }
 
