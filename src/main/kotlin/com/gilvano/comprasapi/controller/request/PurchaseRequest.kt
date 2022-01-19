@@ -9,7 +9,7 @@ import javax.validation.constraints.Digits
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Positive
 
-data class CompraRequest(
+data class PurchaseRequest(
 
     @NotEmpty(message = "O campo 'id' não pode ser vazio.")
     @field:Positive(message = "O campo 'id' deve ser um número positivo.")

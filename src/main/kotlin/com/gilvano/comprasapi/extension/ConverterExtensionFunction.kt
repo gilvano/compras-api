@@ -1,8 +1,8 @@
 package com.gilvano.comprasapi.extension
 
-import com.gilvano.comprasapi.controller.request.CompraRequest
+import com.gilvano.comprasapi.controller.request.PurchaseRequest
 import com.gilvano.comprasapi.controller.request.ResellerRequest
-import com.gilvano.comprasapi.model.CompraModel
+import com.gilvano.comprasapi.model.PurchaseModel
 import com.gilvano.comprasapi.model.ResellerModel
 import java.util.UUID
 
@@ -15,10 +15,10 @@ fun ResellerRequest.toResellerModel() =
         password = password
     )
 
-fun CompraRequest.toCompraModel() =
-    CompraModel(
+fun PurchaseRequest.toPurchaseModel() =
+    PurchaseModel(
         id = id,
         cpf = cpf,
-        valor = valor,
-        data = data
+        value = valor,
+        date = data
     )

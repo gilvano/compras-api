@@ -1,29 +1,28 @@
 package com.gilvano.comprasapi.model
 
-import com.gilvano.comprasapi.enums.CompraStatus
+import com.gilvano.comprasapi.enums.PurchaseStatus
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.validation.constraints.NotBlank
 
-@Document(collection = "compra")
-data class CompraModel(
+@Document(collection = "purchases")
+data class PurchaseModel(
 
     @Id
     var id: Long,
 
     @NotBlank
-    var valor: BigDecimal,
+    var value: BigDecimal,
 
     @NotBlank
-    var data: LocalDate,
+    var date: LocalDate,
 
     @NotBlank
     val cpf: String,
 
-    var status: CompraStatus = CompraStatus.EM_VALIDACAO
+    var status: PurchaseStatus = PurchaseStatus.EM_VALIDACAO
 
 
 )
