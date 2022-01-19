@@ -2,6 +2,7 @@ package com.gilvano.comprasapi.controller.config
 
 import com.gilvano.comprasapi.repository.RevendedorRepository
 import com.gilvano.comprasapi.security.AuthenticationFilter
+import com.gilvano.comprasapi.security.AuthorizationFilter
 import com.gilvano.comprasapi.security.JwtUtil
 import com.gilvano.comprasapi.security.UserDetailsCustomService
 import org.springframework.context.annotation.Bean
@@ -33,6 +34,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), revendedorRepository, jwtUtil))
+        http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
