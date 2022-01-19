@@ -12,12 +12,16 @@ class RevendedorServiceImpl(
     val revendedorRepository: RevendedorRepository
 ) : RevendedorService {
     override fun create(revendedor: RevendedorModel) {
+        validarRevendedor(revendedor)
+        revendedorRepository.save(revendedor)
+    }
+
+    private fun validarRevendedor(revendedor: RevendedorModel) {
         if (revendedorRepository.existsByCpf(revendedor.cpf)) {
             throw BadRequestException(Errors.CP001.message, Errors.CP001.code)
         }
         if (revendedorRepository.existsByEmail(revendedor.email)) {
             throw BadRequestException(Errors.CP002.message, Errors.CP002.code)
         }
-        revendedorRepository.save(revendedor)
     }
 }
