@@ -19,6 +19,6 @@ fun PurchaseRequest.toPurchaseModel() =
     PurchaseModel(
         id = id,
         cpf = cpf,
-        value = valor,
-        date = data
+        value = value,
+        date = date
     )

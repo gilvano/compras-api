@@ -8,24 +8,25 @@ import java.time.LocalDate
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Positive
+import javax.validation.constraints.Size
 
 data class PurchaseRequest(
 
-    @NotEmpty(message = "O campo 'id' não pode ser vazio.")
-    @field:Positive(message = "O campo 'id' deve ser um número positivo.")
+    @NotEmpty(message = "Id is required")
+    @field:Positive(message = "Id should be positive")
     val id: Long,
 
-    @NotEmpty(message = "O campo 'valor' não pode ser vazio.")
-    @field:Digits(integer = 10, fraction = 2, message = "O campo 'valor' deve conter apenas números.")
-    var valor: BigDecimal,
+    @NotEmpty(message = "Value is required")
+    @field:Positive(message = "Value should be positive")
+    var value: BigDecimal,
 
-    @NotEmpty(message = "O campo 'data' não pode ser vazio.")
+    @NotEmpty(message = "Date is required")
     @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-    var data: LocalDate,
+    var date: LocalDate,
 
-    @NotEmpty(message = "CPF não pode ser vazio.")
-    @field:CPF(message="CPF inválido")
-    @field:Length(min = 11, max = 11, message = "CPF deve conter 11 caracteres.")
-    @field:Digits(integer = 11, fraction = 0, message = "CPF deve conter apenas números.")
+    @NotEmpty(message = "CPF is required")
+    @field:CPF(message="CPF invalid")
+    @field:Length(min = 11, max = 11, message = "CPF must have 11 characters")
+    @field:Digits(integer = 11, fraction = 0, message = "CPF must have 11 digits")
     var cpf: String,
 )

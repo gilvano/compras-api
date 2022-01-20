@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
 @Service
-class CompraServiceImpl(
+class PurchaseServiceImpl(
     private val purchaseRepository: PurchaseRepository,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) : PurchaseService {
