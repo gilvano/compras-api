@@ -1,5 +1,6 @@
 package com.gilvano.comprasapi.events.listener
 
+import com.gilvano.comprasapi.component.CashbackProcessor
 import com.gilvano.comprasapi.enums.PurchaseStatus
 import com.gilvano.comprasapi.events.PurchaseEvent
 import com.gilvano.comprasapi.helper.buildPurchase
@@ -19,6 +20,9 @@ internal class UpdatePurchaseListenerTest{
     @MockK
     private lateinit var purchaseService: PurchaseService
 
+    @MockK
+    private lateinit var cashbackProcessor: CashbackProcessor
+
     @InjectMockKs
     private lateinit var updatePurchaseListener: UpdatePurchaseListener
 
@@ -29,6 +33,7 @@ internal class UpdatePurchaseListenerTest{
         val purchaseExpected = purchase.copy(status = PurchaseStatus.APPROVED)
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
+        every { cashbackProcessor.processAssociatedPurchases(purchaseExpected) } just runs
 
         updatePurchaseListener.listen(PurchaseEvent(this, purchase))
 
@@ -39,9 +44,10 @@ internal class UpdatePurchaseListenerTest{
     fun `should not update purchase status`(){
         val CPF_WITHOUT_AUTO_APPROVAL = "22129529020"
         val purchase = buildPurchase(cpf = CPF_WITHOUT_AUTO_APPROVAL)
-        val purchaseExpected = purchase.copy(status = PurchaseStatus.APPROVED)
+        val purchaseExpected = purchase.copy(status = PurchaseStatus.IN_VALIDATION)
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
+        every { cashbackProcessor.processAssociatedPurchases(purchaseExpected) } just runs
 
         updatePurchaseListener.listen(PurchaseEvent(this, purchase))
 
