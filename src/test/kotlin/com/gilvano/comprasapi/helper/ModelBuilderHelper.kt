@@ -25,7 +25,7 @@ fun buildPurchase(
     id: Long = Random().nextLong(),
     cpf: String = "12345678901",
     value: Double = 10.0,
-    status: PurchaseStatus = PurchaseStatus.EM_VALIDACAO,
+    status: PurchaseStatus = PurchaseStatus.IN_VALIDATION,
     date: LocalDate = LocalDate.now(),
     ) = PurchaseModel(
         id = id,

@@ -21,7 +21,7 @@ data class PurchaseModel(
     @NotBlank
     val cpf: String,
 
-    var status: PurchaseStatus = PurchaseStatus.EM_VALIDACAO,
+    var status: PurchaseStatus = PurchaseStatus.IN_VALIDATION,
 
     var cashback: Double = 0.0,
 

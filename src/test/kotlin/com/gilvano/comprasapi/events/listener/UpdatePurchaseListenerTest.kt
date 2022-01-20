@@ -26,7 +26,7 @@ internal class UpdatePurchaseListenerTest{
     fun `should update purchase status`(){
         val CPF_WITH_AUTO_APPROVAL = "15350946056"
         val purchase = buildPurchase(cpf = CPF_WITH_AUTO_APPROVAL)
-        val purchaseExpected = purchase.copy(status = PurchaseStatus.APROVADO)
+        val purchaseExpected = purchase.copy(status = PurchaseStatus.APPROVED)
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
 
@@ -39,7 +39,7 @@ internal class UpdatePurchaseListenerTest{
     fun `should not update purchase status`(){
         val CPF_WITHOUT_AUTO_APPROVAL = "22129529020"
         val purchase = buildPurchase(cpf = CPF_WITHOUT_AUTO_APPROVAL)
-        val purchaseExpected = purchase.copy(status = PurchaseStatus.APROVADO)
+        val purchaseExpected = purchase.copy(status = PurchaseStatus.APPROVED)
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
 

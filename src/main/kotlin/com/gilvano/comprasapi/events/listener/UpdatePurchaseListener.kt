@@ -25,7 +25,7 @@ class UpdatePurchaseListener(
 
     private fun updatePurchaseStatus(purchaseModel: PurchaseModel) {
         if (purchaseModel.cpf.equals(CPF_WITH_AUTO_APPROVAL)) {
-            purchaseModel.status = PurchaseStatus.APROVADO
+            purchaseModel.status = PurchaseStatus.APPROVED
             purchaseService.updatePurchaseStatus(purchaseModel)
         }
     }
