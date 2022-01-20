@@ -20,7 +20,7 @@ class UpdatePurchaseListener(
     @EventListener
     fun listen(purchaseEvent: PurchaseEvent) {
         updatePurchaseStatus(purchaseEvent.purchaseModel)
-        cashbackProcessor.processAssociatedPurchasesByCpf(purchaseEvent.purchaseModel)
+        cashbackProcessor.processAssociatedPurchases(purchaseEvent.purchaseModel)
     }
 
     private fun updatePurchaseStatus(purchaseModel: PurchaseModel) {

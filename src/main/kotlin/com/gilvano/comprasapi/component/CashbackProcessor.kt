@@ -10,7 +10,7 @@ class CashbackProcessor(
     private val purchaseRepository: PurchaseRepository,
     private val cashbackCalculatorFactory: CashbackCalculatorFactory
 ) {
-    fun processAssociatedPurchasesByCpf(purchase: PurchaseModel) {
+    fun processAssociatedPurchases(purchase: PurchaseModel) {
         val associatedPurchases = purchaseRepository.findByCpfAndDateBetween(
             purchase.cpf,
             purchase.date.with(TemporalAdjusters.firstDayOfMonth()),
@@ -20,11 +20,12 @@ class CashbackProcessor(
         val totalAssociatedPurchases = associatedPurchases.sumOf { it.value }
         val cashbackCalculator = cashbackCalculatorFactory.create(totalAssociatedPurchases)
 
-        associatedPurchases.forEach {
+        val updatedPurchases = associatedPurchases.map {
             val cashback = cashbackCalculator.calculate(it.value)
             it.cashbackPercentage = cashback.percent * 100
             it.cashback = cashback.value
-            purchaseRepository.save(it)
+            it
         }
+        purchaseRepository.saveAll(updatedPurchases)
     }
 }
