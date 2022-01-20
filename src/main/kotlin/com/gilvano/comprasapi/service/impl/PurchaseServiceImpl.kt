@@ -14,8 +14,6 @@ class PurchaseServiceImpl(
     private val applicationEventPublisher: ApplicationEventPublisher
 ) : PurchaseService {
 
-    private val CPF_WITH_AUTO_APPROVAL = "15350946056"
-
     override fun create(purchase: PurchaseModel) {
         purchaseRepository.save(purchase)
 
@@ -23,10 +21,6 @@ class PurchaseServiceImpl(
     }
 
     override fun updatePurchaseStatus(purchase: PurchaseModel) {
-        if (purchase.cpf.equals(CPF_WITH_AUTO_APPROVAL)) {
-            purchase.status =  PurchaseStatus.APROVADO
-
             purchaseRepository.save(purchase)
-        }
     }
 }
