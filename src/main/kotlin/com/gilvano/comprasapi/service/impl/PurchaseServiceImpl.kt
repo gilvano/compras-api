@@ -6,6 +6,8 @@ import com.gilvano.comprasapi.model.PurchaseModel
 import com.gilvano.comprasapi.repository.PurchaseRepository
 import com.gilvano.comprasapi.service.PurchaseService
 import org.springframework.context.ApplicationEventPublisher
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,5 +26,8 @@ class PurchaseServiceImpl(
         purchaseRepository.save(purchase)
     }
 
+    override fun findAll(pageable: Pageable): Page<PurchaseModel> {
+        return purchaseRepository.findAll(pageable)
+    }
 
 }
