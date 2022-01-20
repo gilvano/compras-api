@@ -27,10 +27,14 @@ fun buildPurchase(
     value: Double = 10.0,
     status: PurchaseStatus = PurchaseStatus.IN_VALIDATION,
     date: LocalDate = LocalDate.now(),
+    cashback: Double = 0.0,
+    cashbackPercentage: Double = 0.0,
     ) = PurchaseModel(
         id = id,
         cpf = cpf,
         value = value,
         status = status,
-        date = date
+        date = date,
+        cashback = cashback,
+        cashbackPercentage = cashbackPercentage,
     )
