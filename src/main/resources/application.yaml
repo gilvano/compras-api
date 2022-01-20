@@ -16,3 +16,6 @@ spring:
 jwt:
   secret: bec0a820-7904-4c56-bb0f-47ed8e9703ed
   expiration: 36000000
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG

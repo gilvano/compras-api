@@ -21,6 +21,8 @@ class PurchaseServiceImpl(
     }
 
     override fun updatePurchaseStatus(purchase: PurchaseModel) {
-            purchaseRepository.save(purchase)
+        purchaseRepository.save(purchase)
     }
+
+
 }

@@ -3,12 +3,10 @@ package com.gilvano.comprasapi.controller.request
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.br.CPF
 import org.springframework.format.annotation.DateTimeFormat
-import java.math.BigDecimal
 import java.time.LocalDate
 import javax.validation.constraints.Digits
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Positive
-import javax.validation.constraints.Size
 
 data class PurchaseRequest(
 
@@ -18,7 +16,7 @@ data class PurchaseRequest(
 
     @NotEmpty(message = "Value is required")
     @field:Positive(message = "Value should be positive")
-    var value: BigDecimal,
+    var value: Double,
 
     @NotEmpty(message = "Date is required")
     @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")

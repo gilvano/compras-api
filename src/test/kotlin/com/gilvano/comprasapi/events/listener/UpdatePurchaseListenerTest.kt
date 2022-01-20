@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-internal class UpdatePurchaseStatusListenerTest{
+internal class UpdatePurchaseListenerTest{
     @MockK
     private lateinit var purchaseService: PurchaseService
 
     @InjectMockKs
-    private lateinit var updatePurchaseStatusListener: UpdatePurchaseStatusListener
+    private lateinit var updatePurchaseListener: UpdatePurchaseListener
 
     @Test
     fun `should update purchase status`(){
@@ -30,7 +30,7 @@ internal class UpdatePurchaseStatusListenerTest{
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
 
-        updatePurchaseStatusListener.listen(PurchaseEvent(this, purchase))
+        updatePurchaseListener.listen(PurchaseEvent(this, purchase))
 
         verify(exactly = 1) { purchaseService.updatePurchaseStatus(purchaseExpected) }
     }
@@ -43,7 +43,7 @@ internal class UpdatePurchaseStatusListenerTest{
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
 
-        updatePurchaseStatusListener.listen(PurchaseEvent(this, purchase))
+        updatePurchaseListener.listen(PurchaseEvent(this, purchase))
 
         verify(exactly = 0) { purchaseService.updatePurchaseStatus(purchaseExpected) }
     }

@@ -3,7 +3,6 @@ package com.gilvano.comprasapi.model
 import com.gilvano.comprasapi.enums.PurchaseStatus
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.math.BigDecimal
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 
@@ -14,7 +13,7 @@ data class PurchaseModel(
     var id: Long,
 
     @NotBlank
-    var value: BigDecimal,
+    var value: Double,
 
     @NotBlank
     var date: LocalDate,
@@ -22,7 +21,11 @@ data class PurchaseModel(
     @NotBlank
     val cpf: String,
 
-    var status: PurchaseStatus = PurchaseStatus.EM_VALIDACAO
+    var status: PurchaseStatus = PurchaseStatus.EM_VALIDACAO,
+
+    var cashback: Double = 0.0,
+
+    var cashbackPercentage: Double = 0.0
 
 
 )
