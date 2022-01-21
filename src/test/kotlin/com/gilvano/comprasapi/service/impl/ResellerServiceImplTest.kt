@@ -17,7 +17,7 @@ import java.util.UUID
 import kotlin.random.Random
 
 @ExtendWith(MockKExtension::class)
-internal class ResellerServiceImplTest{
+class ResellerServiceImplTest{
 
     @MockK
     private lateinit var resellerRepository: ResellerRepository

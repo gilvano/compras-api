@@ -1,5 +1,6 @@
 package com.gilvano.comprasapi.helper
 
+import com.gilvano.comprasapi.component.Criteria
 import com.gilvano.comprasapi.enums.PurchaseStatus
 import com.gilvano.comprasapi.model.PurchaseModel
 import com.gilvano.comprasapi.model.ResellerModel
@@ -38,3 +39,15 @@ fun buildPurchase(
         cashback = cashback,
         cashbackPercentage = cashbackPercentage,
     )
+
+fun buildCriteria(
+    name: String = "Criteria Test",
+    valueAbove: Double = 10.0,
+    cashbackPercent: Double = 10.0
+): Criteria {
+    val criteria = Criteria()
+    criteria.name = name
+    criteria.valueAbove = valueAbove
+    criteria.cashbackPercent = cashbackPercent
+    return criteria
+}

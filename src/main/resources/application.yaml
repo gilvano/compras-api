@@ -16,6 +16,21 @@ spring:
 jwt:
   secret: bec0a820-7904-4c56-bb0f-47ed8e9703ed
   expiration: 36000000
-logging:
-  level:
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+#logging:
+#  level:
+#    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+cashback:
+  criteria:
+    -
+      name: Purchases up to 1000
+      valueAbove: 0
+      cashbackPercent: 0.10
+    -
+      name: Purchases between 1000 and 1500
+      valueAbove: 1000
+      cashbackPercent: 0.15
+    -
+      name: Purchases above 1500
+      valueabove: 1500
+      cashbackPercent: 0.20

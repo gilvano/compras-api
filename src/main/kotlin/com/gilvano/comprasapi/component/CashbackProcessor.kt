@@ -35,7 +35,7 @@ class CashbackProcessor(
         val totalAssociatedPurchases = associatedPurchases.sumOf { it.value }
         val cashbackCalculator = cashbackCalculatorFactory.create(totalAssociatedPurchases)
         return associatedPurchases.map {
-            val (percent, cashback )= cashbackCalculator.calculate(it.value)
+            val (percent, cashback ) = cashbackCalculator.calculate(it.value)
             it.cashbackPercentage = percent * 100
             it.cashback = cashback
             it
