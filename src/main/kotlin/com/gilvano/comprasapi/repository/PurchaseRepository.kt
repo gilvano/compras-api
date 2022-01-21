@@ -10,5 +10,5 @@ import java.time.LocalDate
 interface PurchaseRepository: CrudRepository<PurchaseModel, Long> {
     @Query("{ 'cpf': ?0, 'date': { '\$gte': ?1, '\$lte': ?2 } }")
     fun findByCpfAndDateBetween(cpf: String, dateStart: LocalDate, dateEnd: LocalDate): List<PurchaseModel>
-    fun findAll(pageable: Pageable): Page<PurchaseModel>
+    fun findAllByCpf(cpf: String, pageable: Pageable): Page<PurchaseModel>
 }

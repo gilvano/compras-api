@@ -35,7 +35,9 @@ class PurchaseServiceImpl(
     }
 
     override fun findAll(pageable: Pageable): Page<PurchaseModel> {
-        return purchaseRepository.findAll(pageable)
+        return purchaseRepository.findAllByCpf(
+            getCpfFromLogedUser(),
+            pageable)
     }
 
     private fun validatePurchase(purchase: PurchaseModel) {
