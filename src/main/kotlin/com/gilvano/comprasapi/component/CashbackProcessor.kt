@@ -12,7 +12,7 @@ class CashbackProcessor(
 ) {
     fun processAssociatedPurchases(purchase: PurchaseModel) {
         val associatedPurchases = purchaseRepository.findByCpfAndDateBetween(
-            purchase.cpf,
+            purchase.cpf!!,
             purchase.date.with(TemporalAdjusters.firstDayOfMonth()),
             purchase.date.with(TemporalAdjusters.lastDayOfMonth())
         )

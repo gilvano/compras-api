@@ -39,7 +39,7 @@ class CashbackProcessorTest{
         )
 
         every { purchaseRepository.findByCpfAndDateBetween(
-            purchase.cpf,
+            purchase.cpf!!,
             purchase.date.with(TemporalAdjusters.firstDayOfMonth()),
             purchase.date.with(TemporalAdjusters.lastDayOfMonth())
         )
@@ -66,7 +66,7 @@ class CashbackProcessorTest{
         )
 
         every { purchaseRepository.findByCpfAndDateBetween(
-                purchase.cpf,
+                purchase.cpf!!,
                 purchase.date.with(TemporalAdjusters.firstDayOfMonth()),
                 purchase.date.with(TemporalAdjusters.lastDayOfMonth())
             )
@@ -93,7 +93,7 @@ class CashbackProcessorTest{
         )
 
         every { purchaseRepository.findByCpfAndDateBetween(
-            purchase.cpf,
+            purchase.cpf!!,
             purchase.date.with(TemporalAdjusters.firstDayOfMonth()),
             purchase.date.with(TemporalAdjusters.lastDayOfMonth())
         )

@@ -19,7 +19,7 @@ data class PurchaseModel(
     var date: LocalDate,
 
     @NotBlank
-    val cpf: String,
+    val cpf: String? = null,
 
     var status: PurchaseStatus = PurchaseStatus.IN_VALIDATION,
 

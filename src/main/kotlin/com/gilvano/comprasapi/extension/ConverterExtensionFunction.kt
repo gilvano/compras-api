@@ -22,7 +22,6 @@ fun ResellerRequest.toResellerModel() =
 fun PurchaseRequest.toPurchaseModel() =
     PurchaseModel(
         id = id,
-        cpf = cpf,
         value = value,
         date = date
     )

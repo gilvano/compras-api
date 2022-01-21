@@ -22,9 +22,9 @@ data class PurchaseRequest(
     @DateTimeFormat(iso =  DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
     var date: LocalDate,
 
-    @NotEmpty(message = "CPF is required")
-    @field:CPF(message="CPF invalid")
-    @field:Length(min = 11, max = 11, message = "CPF must have 11 characters")
-    @field:Digits(integer = 11, fraction = 0, message = "CPF must have 11 digits")
-    var cpf: String,
+//    @NotEmpty(message = "CPF is required")
+//    @field:CPF(message="CPF invalid")
+//    @field:Length(min = 11, max = 11, message = "CPF must have 11 characters")
+//    @field:Digits(integer = 11, fraction = 0, message = "CPF must have 11 digits")
+//    var cpf: String,
 )

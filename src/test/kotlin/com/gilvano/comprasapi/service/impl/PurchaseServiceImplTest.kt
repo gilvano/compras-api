@@ -4,10 +4,13 @@ import com.gilvano.comprasapi.enums.Errors
 import com.gilvano.comprasapi.events.PurchaseEvent
 import com.gilvano.comprasapi.exception.DuclicateResourceException
 import com.gilvano.comprasapi.helper.buildPurchase
+import com.gilvano.comprasapi.helper.buildReseller
 import com.gilvano.comprasapi.repository.PurchaseRepository
+import com.gilvano.comprasapi.repository.ResellerRepository
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.runs
@@ -19,6 +22,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.context.ApplicationEventPublisher
+import java.util.Optional
 
 @ExtendWith(MockKExtension::class)
 class PurchaseServiceImplTest{
@@ -26,20 +30,28 @@ class PurchaseServiceImplTest{
     private lateinit var purchaseRepository: PurchaseRepository
 
     @MockK
+    private lateinit var resellerRepository: ResellerRepository
+
+    @MockK
     private lateinit var applicationEventPublisher: ApplicationEventPublisher
 
     @InjectMockKs
+    @SpyK
     private lateinit var purchaseService: PurchaseServiceImpl
 
     private val purchaseEventSlot = slot<PurchaseEvent>()
 
     @Test
     fun `should create purchase and publish event`() {
-        val purchase = buildPurchase()
+        val fakeCpf = "12345678901"
+        val purchase = buildPurchase(cpf = fakeCpf)
+        val reseller = buildReseller(cpf = fakeCpf)
 
         every { purchaseRepository.save(purchase) } returns purchase
         every { applicationEventPublisher.publishEvent(any()) } just runs
         every { purchaseRepository.existsById(any()) } returns false
+        every { resellerRepository.findById(any()) } returns Optional.of(reseller)
+        every { purchaseService.getCpfFromLogedUser() } returns fakeCpf
 
         purchaseService.create(purchase)
 
