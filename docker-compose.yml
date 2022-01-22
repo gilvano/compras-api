@@ -10,5 +10,16 @@ services:
     volumes:
       - mongodb_data:/data/db
 
+  wiremock:
+    image: wiremock/wiremock
+    container_name: wiremock
+    command:
+      - --global-response-templating
+    volumes:
+      - ./wiremock/__files:/home/wiremock/__files
+      - ./wiremock/mappings:/home/wiremock/mappings
+    ports:
+      - 8086:8080
+
 volumes:
   mongodb_data:

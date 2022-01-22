@@ -1,0 +1,6 @@
+{
+  "statusCode": 200,
+  "body": {
+    "credit": "{{randomInt lower=1000 upper=9000}}"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/v1/cashback",
+    "headers": {
+      "token": {
+        "contains": "ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm"
+      }
+    },
+    "queryParameters": {
+      "cpf": {
+        "matches": "^(.*)[0-9]$"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    },
+    "bodyFileName": "get_cashback_success.json"
+  }
+}
