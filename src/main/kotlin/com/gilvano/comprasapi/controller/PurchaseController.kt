@@ -32,4 +32,8 @@ class PurchaseController(
     @GetMapping("/all")
     fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<PurchaseResponse> =
         purchaseService.findAll(pageable).map { it.toPurchaseResponse() }.toPageResponse()
+
+    @GetMapping("/accumulated")
+    fun accumulated(): Double = purchaseService.getAccumulatedCashback()
+
 }

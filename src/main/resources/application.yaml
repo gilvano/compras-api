@@ -20,6 +20,10 @@ jwt:
 #  level:
 #    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
 
+third-party:
+  external-api-url: http://localhost:8086/v1/cashback
+  token: ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm
+
 cashback:
   criteria:
     -

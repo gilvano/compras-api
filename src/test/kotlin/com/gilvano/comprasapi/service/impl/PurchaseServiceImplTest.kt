@@ -51,7 +51,7 @@ class PurchaseServiceImplTest{
         every { applicationEventPublisher.publishEvent(any()) } just runs
         every { purchaseRepository.existsById(any()) } returns false
         every { resellerRepository.findById(any()) } returns Optional.of(reseller)
-        every { purchaseService.getCpfFromLoggedUser() } returns fakeCpf
+        every { purchaseService.getCpfFromLoggedReseller() } returns fakeCpf
 
         purchaseService.create(purchase)
 

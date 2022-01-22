@@ -8,4 +8,5 @@ interface PurchaseService {
     fun create(purchase: PurchaseModel)
     fun updatePurchaseStatus(purchase: PurchaseModel)
     fun findAll(pageable: Pageable): Page<PurchaseModel>
+    fun getAccumulatedCashback(): Double
 }
