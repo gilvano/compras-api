@@ -3,7 +3,6 @@ package com.gilvano.comprasapi.service.impl
 import com.gilvano.comprasapi.enums.Errors
 import com.gilvano.comprasapi.events.PurchaseEvent
 import com.gilvano.comprasapi.exception.DuclicateResourceException
-import com.gilvano.comprasapi.gateway.ExternalApiClient
 import com.gilvano.comprasapi.helper.buildPurchase
 import com.gilvano.comprasapi.helper.buildReseller
 import com.gilvano.comprasapi.repository.PurchaseRepository
@@ -11,13 +10,11 @@ import com.gilvano.comprasapi.repository.ResellerRepository
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.SpyK
 import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.runs
 import io.mockk.slot
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -38,9 +35,6 @@ class PurchaseServiceImplTest{
 
     @MockK
     private lateinit var applicationEventPublisher: ApplicationEventPublisher
-
-    @MockK
-    private lateinit var externalApiClient: ExternalApiClient
 
     @InjectMockKs
     private lateinit var purchaseService: PurchaseServiceImpl
