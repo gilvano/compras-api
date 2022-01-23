@@ -49,7 +49,7 @@ class ControllerAdvice {
     }
 
     @ExceptionHandler(DuclicateResourceException::class)
-    fun DuclicateResourceException(ex: DuclicateResourceException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleDuclicateResourceException(ex: DuclicateResourceException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
             HttpStatus.BAD_REQUEST.value(),
             ex.message,
@@ -58,5 +58,17 @@ class ControllerAdvice {
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(ExternalCommunicationFailureException::class)
+    fun handleExternalCommunicationFailureException(ex: ExternalCommunicationFailureException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            ex.statusCode.value(),
+            ex.errorMessage,
+            ex.statusCode.toString(),
+            null
+        )
+
+        return ResponseEntity(error, ex.statusCode)
     }
 }

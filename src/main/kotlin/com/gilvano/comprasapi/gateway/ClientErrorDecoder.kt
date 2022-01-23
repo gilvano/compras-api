@@ -7,5 +7,5 @@ import org.springframework.http.HttpStatus
 
 class ClientErrorDecoder: ErrorDecoder {
     override fun decode(methodKey: String, response: Response) =
-        ExternalCommunicationFailureException(HttpStatus.FAILED_DEPENDENCY, response.reason())
+        ExternalCommunicationFailureException(response.reason(), HttpStatus.FAILED_DEPENDENCY)
 }
