@@ -32,6 +32,8 @@ dependencies {
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test:5.6.1")
+	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 	testImplementation("io.mockk:mockk:1.12.2")
 }
 

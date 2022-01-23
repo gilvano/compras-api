@@ -1,14 +1,21 @@
+#spring:
+#  data:
+#    mongodb:
+#      database: compras-api
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: compras-api
-      username: root
-      password: root
-      authenticationDatabase: admin
-  jackson:
-    default-property-inclusion: NON_NULL
+  mongodb:
+    embedded:
+      version: 3.2.8
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: compras-api
+#      username: root
+#      password: root
+#      authenticationDatabase: admin
+#  jackson:
+#    default-property-inclusion: NON_NULL
 jwt:
   secret: bec0a820-7904-4c56-bb0f-47ed8e9703ed
   expiration: 36000000

@@ -1,6 +1,7 @@
 package com.gilvano.comprasapi.helper
 
 import com.gilvano.comprasapi.component.Criteria
+import com.gilvano.comprasapi.enums.Profile
 import com.gilvano.comprasapi.enums.PurchaseStatus
 import com.gilvano.comprasapi.model.PurchaseModel
 import com.gilvano.comprasapi.model.ResellerModel
@@ -10,16 +11,18 @@ import java.util.UUID
 
 fun buildReseller(
     id: String? = UUID.randomUUID().toString(),
-    nome: String = "Reseller Test",
+    name: String = "Reseller Test",
     cpf: String = "12345678901",
     email: String = "${UUID.randomUUID()}@email.com",
     password: String = "password",
+    profile: Profile = Profile.RESELLER
 ) = ResellerModel(
     id = id,
-    name = nome,
+    name = name,
     cpf = cpf,
     email = email,
     password = password,
+    profile = profile
 )
 
 fun buildPurchase(
