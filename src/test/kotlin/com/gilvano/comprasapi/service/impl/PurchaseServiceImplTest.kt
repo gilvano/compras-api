@@ -3,6 +3,7 @@ package com.gilvano.comprasapi.service.impl
 import com.gilvano.comprasapi.enums.Errors
 import com.gilvano.comprasapi.events.PurchaseEvent
 import com.gilvano.comprasapi.exception.DuclicateResourceException
+import com.gilvano.comprasapi.gateway.ExternalApiClient
 import com.gilvano.comprasapi.helper.buildPurchase
 import com.gilvano.comprasapi.helper.buildReseller
 import com.gilvano.comprasapi.repository.PurchaseRepository
@@ -35,6 +36,9 @@ class PurchaseServiceImplTest{
 
     @MockK
     private lateinit var applicationEventPublisher: ApplicationEventPublisher
+
+    @MockK
+    private lateinit var externalApiClient: ExternalApiClient
 
     @InjectMockKs
     private lateinit var purchaseService: PurchaseServiceImpl

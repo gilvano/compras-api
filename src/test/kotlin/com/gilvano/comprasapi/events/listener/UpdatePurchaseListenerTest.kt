@@ -5,6 +5,7 @@ import com.gilvano.comprasapi.enums.PurchaseStatus
 import com.gilvano.comprasapi.events.PurchaseEvent
 import com.gilvano.comprasapi.helper.buildPurchase
 import com.gilvano.comprasapi.service.PurchaseService
+import com.gilvano.comprasapi.utils.CPF_WITH_AUTO_APPROVAL
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -28,7 +29,6 @@ internal class UpdatePurchaseListenerTest{
 
     @Test
     fun `should update purchase status`(){
-        val CPF_WITH_AUTO_APPROVAL = "15350946056"
         val purchase = buildPurchase(cpf = CPF_WITH_AUTO_APPROVAL)
         val purchaseExpected = purchase.copy(status = PurchaseStatus.APPROVED)
 
@@ -42,8 +42,8 @@ internal class UpdatePurchaseListenerTest{
 
     @Test
     fun `should not update purchase status`(){
-        val CPF_WITHOUT_AUTO_APPROVAL = "22129529020"
-        val purchase = buildPurchase(cpf = CPF_WITHOUT_AUTO_APPROVAL)
+        val fakeCpf = "22129529020"
+        val purchase = buildPurchase(cpf = fakeCpf)
         val purchaseExpected = purchase.copy(status = PurchaseStatus.IN_VALIDATION)
 
         every { purchaseService.updatePurchaseStatus(purchaseExpected) } just runs
