@@ -8,6 +8,7 @@ import com.gilvano.comprasapi.repository.ResellerRepository
 import com.gilvano.comprasapi.service.ResellerService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -26,6 +27,16 @@ class ResellerServiceImpl(
         )
         logger.info("Creating reseller: $resellerCopy")
         resellerRepository.save(resellerCopy)
+    }
+
+    override fun getCpfFromLoggedReseller(): String {
+        logger.info("Getting cpf from logged user")
+        val id = SecurityContextHolder.getContext().authentication.principal as String
+        val reseller = resellerRepository.findById(id).orElseThrow {
+            logger.error("Reseller not found: $id")
+            throw Exception("Reseller not found")
+        }
+        return reseller.cpf
     }
 
     private fun validateReseller(reseller: ResellerModel) {

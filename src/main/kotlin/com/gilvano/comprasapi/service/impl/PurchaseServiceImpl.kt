@@ -6,7 +6,6 @@ import com.gilvano.comprasapi.exception.DuclicateResourceException
 import com.gilvano.comprasapi.gateway.ExternalApiClient
 import com.gilvano.comprasapi.model.PurchaseModel
 import com.gilvano.comprasapi.repository.PurchaseRepository
-import com.gilvano.comprasapi.repository.ResellerRepository
 import com.gilvano.comprasapi.service.PurchaseService
 import com.gilvano.comprasapi.utils.TOKEN
 import org.slf4j.Logger
@@ -15,13 +14,12 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
 class PurchaseServiceImpl(
     private val purchaseRepository: PurchaseRepository,
-    private val resellerRepository: ResellerRepository,
+    private val resellerService: ResellerServiceImpl,
     private val applicationEventPublisher: ApplicationEventPublisher,
     private val externalApiClient: ExternalApiClient
 ) : PurchaseService {
@@ -33,7 +31,7 @@ class PurchaseServiceImpl(
     override fun create(purchase: PurchaseModel) {
         validatePurchase(purchase)
         val purchaseWithCpf = purchase.copy(
-            cpf = getCpfFromLoggedReseller()
+            cpf = resellerService.getCpfFromLoggedReseller()
         )
         logger.info("Creating purchase: $purchaseWithCpf")
         purchaseRepository.save(purchaseWithCpf)
@@ -47,7 +45,7 @@ class PurchaseServiceImpl(
 
     override fun findAll(pageable: Pageable): Page<PurchaseModel> {
         return purchaseRepository.findAllByCpf(
-            getCpfFromLoggedReseller(),
+            resellerService.getCpfFromLoggedReseller(),
             pageable)
     }
 
@@ -59,21 +57,11 @@ class PurchaseServiceImpl(
         }
     }
 
-    fun getCpfFromLoggedReseller(): String {
-        logger.info("Getting cpf from logged user")
-        val id = SecurityContextHolder.getContext().authentication.principal as String
-        val reseller = resellerRepository.findById(id).orElseThrow {
-            logger.error("Reseller not found: $id")
-            throw Exception("Reseller not found")
-        }
-        return reseller.cpf
-    }
-
     override fun getAccumulatedCashback(): Double {
         logger.info("Getting accumulated cashback")
         val tokenHeader = mapOf(TOKEN to token)
         val caskback =  externalApiClient
-            .getAccumulatedCashbackByCpf(tokenHeader, getCpfFromLoggedReseller())
+            .getAccumulatedCashbackByCpf(tokenHeader, resellerService.getCpfFromLoggedReseller())
         return caskback.body.credit
     }
 }

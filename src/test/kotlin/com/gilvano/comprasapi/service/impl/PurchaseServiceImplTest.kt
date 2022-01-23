@@ -34,13 +34,15 @@ class PurchaseServiceImplTest{
     private lateinit var resellerRepository: ResellerRepository
 
     @MockK
+    private lateinit var resellerService: ResellerServiceImpl
+
+    @MockK
     private lateinit var applicationEventPublisher: ApplicationEventPublisher
 
     @MockK
     private lateinit var externalApiClient: ExternalApiClient
 
     @InjectMockKs
-    @SpyK
     private lateinit var purchaseService: PurchaseServiceImpl
 
     private val purchaseEventSlot = slot<PurchaseEvent>()
@@ -55,7 +57,7 @@ class PurchaseServiceImplTest{
         every { applicationEventPublisher.publishEvent(any()) } just runs
         every { purchaseRepository.existsById(any()) } returns false
         every { resellerRepository.findById(any()) } returns Optional.of(reseller)
-        every { purchaseService.getCpfFromLoggedReseller() } returns fakeCpf
+        every { resellerService.getCpfFromLoggedReseller() } returns fakeCpf
 
         purchaseService.create(purchase)
 
@@ -74,8 +76,8 @@ class PurchaseServiceImplTest{
             purchaseService.create(purchase)
         }
 
-        Assertions.assertEquals(Errors.CP101.message, error.message)
-        Assertions.assertEquals(Errors.CP101.code, error.errorCode)
+        assertEquals(Errors.CP101.message, error.message)
+        assertEquals(Errors.CP101.code, error.errorCode)
         verify(exactly = 1) { purchaseRepository.existsById(any()) }
     }
 }

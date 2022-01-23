@@ -4,4 +4,5 @@ import com.gilvano.comprasapi.model.ResellerModel
 
 interface ResellerService {
     fun create(reseller: ResellerModel)
+    fun getCpfFromLoggedReseller(): String
 }
