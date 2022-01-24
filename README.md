@@ -36,6 +36,10 @@ Para rodar os testes basta executar o comando
 
 ```./gradlew test```
 
+Para acessar a url com a documentação da API
+
+ [localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
 
 ### Utilização da API
 
