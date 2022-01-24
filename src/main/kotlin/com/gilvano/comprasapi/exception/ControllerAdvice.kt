@@ -71,4 +71,16 @@ class ControllerAdvice {
 
         return ResponseEntity(error, ex.statusCode)
     }
+
+    @ExceptionHandler(AuthenticationException::class)
+    fun handleAuthenticationException(ex: AuthenticationException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            HttpStatus.UNAUTHORIZED.value(),
+            Errors.CP996.message,
+            Errors.CP996.code,
+            null)
+
+        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
+
+    }
 }

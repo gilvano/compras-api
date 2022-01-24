@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -33,9 +34,16 @@ class SecurityConfig(
         "/api/v1/resellers"
     )
 
+    private val PUBLIC_MATCHERS = arrayOf(
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html"
+    )
+
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable()
         http.authorizeRequests()
+            .antMatchers(*PUBLIC_MATCHERS).permitAll()
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), resellerRepository, jwtUtil))
@@ -47,6 +55,10 @@ class SecurityConfig(
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.userDetailsService(userDetails).passwordEncoder(bCryptPasswordEncoder())
     }
+
+//    override fun configure(web: WebSecurity) {
+//        web.ignoring().antMatchers("/swagger-ui/**", "/javainuse-openapi/**")
+//    }
 
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {

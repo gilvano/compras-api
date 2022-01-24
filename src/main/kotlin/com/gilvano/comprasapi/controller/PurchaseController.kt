@@ -7,6 +7,7 @@ import com.gilvano.comprasapi.extension.toPageResponse
 import com.gilvano.comprasapi.extension.toPurchaseModel
 import com.gilvano.comprasapi.extension.toPurchaseResponse
 import com.gilvano.comprasapi.service.PurchaseService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
@@ -20,6 +21,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/purchases")
+@SecurityRequirement(name = "bearerAuth")
 class PurchaseController(
     private val purchaseService: PurchaseService
 ) {
