@@ -34,3 +34,7 @@ cashback:
       name: Purchases above 1500
       valueabove: 1500
       cashbackPercent: 0.20
+
+  logstash:
+    host: localhost
+    port: 5000

@@ -34,6 +34,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-security:1.6.3")
 	implementation("org.springdoc:springdoc-openapi-data-rest:1.6.3")
 	implementation("org.springdoc:springdoc-openapi-kotlin:1.6.3")
+	implementation("net.logstash.logback:logstash-logback-encoder:7.0.1")
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test:5.6.1")
