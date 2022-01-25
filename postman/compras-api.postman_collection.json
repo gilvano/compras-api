@@ -45,7 +45,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"gilvano1@gmail.com\",\r\n    \"senha\": \"123\"\r\n}",
+					"raw": "{\r\n    \"email\": \"g1@gmail.com\",\r\n    \"senha\": \"1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,13 +53,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/login",
+					"raw": "http://localhost:8080/api/v1/resellers/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"api",
+						"v1",
+						"resellers",
 						"login"
 					]
 				}

@@ -49,7 +49,7 @@ POST - http://localhost:8080/api/v1/resellers
 
 #### Login de revendedor
 
-POST - http://localhost:8080/login
+POST - http://localhost:8080/api/v1/resellers/login
 
 #### Cadastro de compra
 
