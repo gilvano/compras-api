@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "20505f1b-c691-4187-92bd-027c22a735ed",
+		"name": "compras-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "revendedor",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Gilvano\",\r\n    \"cpf\": \"22129529020\",\r\n    \"email\": \"gilvano1@gmail.com\",\r\n    \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/resellers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resellers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"gilvano1@gmail.com\",\r\n    \"senha\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compra",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MzAzNTRmYi0wMzJiLTRjNDktYTk1Zi1lZThlNWNmMTI4NzYiLCJleHAiOjE2NDI3MTc3NDB9.Oq0H_Z5bW0S6eusbXY7cQhpPXOS6ZPaJ_3yYpuxLsbo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"cpf\": \"15350946056\",\r\n    \"date\": \"2022-01-31\",\r\n    \"value\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/purchases",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"purchases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compras",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MzAzNTRmYi0wMzJiLTRjNDktYTk1Zi1lZThlNWNmMTI4NzYiLCJleHAiOjE2NDI3MTc3NDB9.Oq0H_Z5bW0S6eusbXY7cQhpPXOS6ZPaJ_3yYpuxLsbo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/purchases/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"purchases",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accumulated",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjNTBkM2EzNC0yYzIzLTQ2YWItYjY2ZS0wMDk5NDBjNzhhZWEiLCJleHAiOjE2NDI5MTM0MTJ9.vaXaq-lZrC6SgDG3MNEAoNiFPU91e1CFu8Vjx8Q-zZ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/purchases/accumulated",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"purchases",
+						"accumulated"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
