@@ -39,6 +39,13 @@ class ResellerServiceImpl(
         return reseller.cpf
     }
 
+    override fun findByEmail(email: String): ResellerModel {
+        return resellerRepository.findByEmail(email).orElseThrow {
+            logger.error("Reseller not found: $email")
+            throw Exception("Reseller not found")
+        }
+    }
+
     private fun validateReseller(reseller: ResellerModel) {
         logger.info("Validating reseller: $reseller")
         if (resellerRepository.existsByCpf(reseller.cpf)) {
