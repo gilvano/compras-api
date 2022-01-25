@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.gilvano.comprasapi.controller.response.LoginResponse
 
 
 @AutoConfigureMockMvc
@@ -79,7 +81,7 @@ class PurchaseControllerIT{
                     }
                     """.trimIndent()
                 )
-                .header("Authorization", token)
+                .header("Authorization", "Bearer $token")
         )
             .andExpect(status().isCreated)
 
@@ -104,7 +106,7 @@ class PurchaseControllerIT{
                     }
                     """.trimIndent()
                 )
-                .header("Authorization", token)
+                .header("Authorization", "Bearer $token")
         )
             .andExpect(status().isCreated)
 
@@ -120,7 +122,7 @@ class PurchaseControllerIT{
                     }
                     """.trimIndent()
                 )
-                .header("Authorization", token)
+                .header("Authorization", "Bearer $token")
         )
             .andExpect(status().isCreated)
 
@@ -151,7 +153,7 @@ class PurchaseControllerIT{
                     }
                     """.trimIndent()
                 )
-                .header("Authorization", token)
+                .header("Authorization", "Bearer $token")
         )
             .andExpect(status().isCreated)
 
@@ -167,7 +169,7 @@ class PurchaseControllerIT{
                     }
                     """.trimIndent()
                 )
-                .header("Authorization", token)
+                .header("Authorization", "Bearer $token")
         )
             .andExpect(status().isCreated)
 
@@ -185,8 +187,8 @@ class PurchaseControllerIT{
     }
 
     private fun login(username: String, password: String): String{
-        return mockMvc.perform(
-            post("/login")
+        val response = mockMvc.perform(
+            post("/api/v1/resellers/login")
                 .contentType("application/json")
                 .content(
                     """
@@ -198,6 +200,10 @@ class PurchaseControllerIT{
                 )
         )
             .andExpect(status().isOk)
-            .andReturn().response.getHeader("Authorization").toString()
+            .andReturn().response.contentAsString
+
+        val loginResponse = jacksonObjectMapper().readValue(response, LoginResponse::class.java)
+
+        return loginResponse.token
     }
 }
