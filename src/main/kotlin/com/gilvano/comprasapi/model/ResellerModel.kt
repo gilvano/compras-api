@@ -24,6 +24,8 @@ data class ResellerModel(
     val password: String,
 
     var profile: Profile = Profile.RESELLER
-
-
-)
+) {
+    override fun toString(): String {
+        return "ResellerModel(id=$id, name='$name', cpf='***********', email='$email', password='$password', profile=$profile)"
+    }
+}

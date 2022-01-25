@@ -26,6 +26,9 @@ data class PurchaseModel(
     var cashback: Double = 0.0,
 
     var cashbackPercentage: Double = 0.0
-
-
-)
+) {
+    override fun toString(): String {
+        return "PurchaseModel(id=$id, value=$value, date=$date, cpf=***********," +
+                " status=$status, cashback=$cashback, cashbackPercentage=$cashbackPercentage)"
+    }
+}
